@@ -69,7 +69,12 @@ export class UserController {
     })
 
     update = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-        const user = await storage.user.update(req.params.id, req.body)
+        const { id } = res.locals, _id = req.params.id;
+
+        if (_id !== id)
+            return next(new AppError(403, `Siz o'zingizni malumotlaringizni o'zgartira olasiz`))
+
+        const user = await storage.user.update(_id, req.body)
 
         res.status(200).json({
             success: true,
@@ -80,7 +85,12 @@ export class UserController {
     })
 
     delete = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-        await storage.user.delete(req.params.id)
+        const { id } = res.locals, _id = req.params.id;
+
+        if (_id !== id)
+            return next(new AppError(403, `Siz o'zingizni hisobingizni o'chira olasiz`))
+
+        await storage.user.delete({ _id })
 
         const users = await storage.user.find(req.query)
 

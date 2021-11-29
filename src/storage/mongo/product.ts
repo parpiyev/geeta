@@ -19,7 +19,7 @@ export class ProductStorage implements ProductRepo {
 
     async findOne(query: Object): Promise<IProduct> {
         try {
-            const product = await Product.findOne(query)
+            const product = await Product.findOne(query).populate('category_id')
 
             if (!product) {
                 logger.warn(`${this.scope}.get failed to findOne`)

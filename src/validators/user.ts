@@ -20,6 +20,11 @@ export class UserValidator {
         password: Joi.string()
     })
 
+    loginSchema = Joi.object({
+        email: Joi.string().required(),
+        password: Joi.string()
+    })
+
     create = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
         const { error } = this.createSchema.validate(req.body)
         if (error) return next(error)
@@ -29,6 +34,13 @@ export class UserValidator {
 
     update = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
         const { error } = this.updateSchema.validate(req.body)
+        if (error) return next(error)
+
+        next()
+    })
+
+    login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+        const { error } = this.loginSchema.validate(req.body)
         if (error) return next(error)
 
         next()
