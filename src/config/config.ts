@@ -11,6 +11,7 @@ interface Config {
     MongoUser: string
     MongoAuthDisable: boolean
     NodeEnv: string
+    JwtSecret: string
 }
 
 let config: Config = {
@@ -21,6 +22,7 @@ let config: Config = {
     MongoPassword: getConf("MONGO_PASSWORD", ""),
     MongoUser: getConf("MONGO_USER", ""),
     NodeEnv: getConf("NODE_ENV", "development"),
+    JwtSecret: getConf("JwtSecret", "JwtSecret"),
     MongoAuthDisable: true
 }
 
