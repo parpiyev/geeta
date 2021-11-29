@@ -18,7 +18,7 @@ let config: Config = {
     HttpPort: getConf("HTTP_PORT", "3000"),
     MongoHost: getConf("MONGO_HOST", "localhost"),
     MongoPort: parseInt(getConf("MONGO_PORT", "27017")),
-    MongoDatabase: getConf("MONGO_DATABASE", "sample_project"),
+    MongoDatabase: getConf("MONGO_DATABASE", "shahzod_aka_app"),
     MongoPassword: getConf("MONGO_PASSWORD", ""),
     MongoUser: getConf("MONGO_USER", ""),
     NodeEnv: getConf("NODE_ENV", "development"),
