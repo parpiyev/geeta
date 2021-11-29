@@ -9,7 +9,7 @@ const controller = new ProductController()
 const validator = new ProductValidator()
 
 router.route("/all").get(authMiddleware('user'), controller.getAll)
-router.route("/create").post(authMiddleware('user'), upload(['image/jpeg', 'image/png'], 10).single('photo'), validator.create, controller.create)
+router.route("/create").post(authMiddleware('user'), upload(['image/jpeg', 'image/png'], 10).single('image'), validator.create, controller.create)
 router
     .route("/:id")
     .get(authMiddleware('user'), controller.get)

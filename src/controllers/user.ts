@@ -47,12 +47,12 @@ export class UserController {
     })
 
     login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-        const user = (await storage.user.find({ email: req.params.email }))[0]
+        const user = (await storage.user.find({ email: req.body.email }))[0]
 
         if (!user)
             return next(new AppError(401, `Email yoki parol no'to'rg'ri iltomos tekshirib qaytadan urinib ko'ring`))
 
-        const password = await bcrypt.compare(user.password, req.body.password)
+        const password = await bcrypt.compare(req.body.password, user.password)
 
         if (!password)
             return next(new AppError(401, `Email yoki parol no'to'rg'ri iltomos tekshirib qaytadan urinib ko'ring`))

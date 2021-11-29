@@ -30,7 +30,7 @@ export const authMiddleware = (user_role: string) => {
         const decoded = decodeToken(token)
         const role = (await decoded).role
 
-        if (role === user_role)
+        if (role !== user_role)
             return next(new AppError(401, 'Sizga ruhsat berilmagan'))
 
         const user = (await storage.user.find({ _id: (await decoded).id }))[0]

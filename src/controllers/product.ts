@@ -1,3 +1,5 @@
+import fs from "fs/promises"
+import path from "path"
 import { NextFunction, Request, Response } from "express"
 import { logger } from "../config/logger"
 import { storage } from "../storage/main"
@@ -28,7 +30,15 @@ export class ProductController {
     })
 
     create = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-        const product = await storage.product.create(req.body)
+        if (!req.file) {
+            return next(new AppError(400, 'Iltimos rasm yuklang'))
+        }
+
+        const image = `${req.file.fieldname}-${Date.now()}${path.extname(req.file.originalname)}`
+
+        await fs.writeFile(path.join(__dirname, '../uploads', image), req.file.buffer)
+
+        const product = await storage.product.create({ ...req.body, image })
 
         res.status(201).json({
             success: true,
