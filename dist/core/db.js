@@ -48,7 +48,7 @@ var Database = /** @class */ (function () {
     }
     Database.prototype.connect = function () {
         return mongoose_1.default.connect(this.url, {
-            autoIndex: false,
+            useCreateIndex: true,
             useNewUrlParser: true,
             useFindAndModify: false,
             useUnifiedTopology: true,

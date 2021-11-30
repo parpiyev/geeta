@@ -61,7 +61,7 @@ export default class Database {
         return mongoose.connect(
             this.url,
             {
-                autoIndex: false,
+                useCreateIndex: true,
                 useNewUrlParser: true,
                 useFindAndModify: false,
                 useUnifiedTopology: true,
